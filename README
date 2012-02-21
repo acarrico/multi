@@ -1,0 +1,44 @@
+AUTHOR: Anthony Carrico <acarrico@memebeam.org>
+
+This is an implementation of Olin Shivers'/David Fisher's
+"Multi-return Function Call". I'll quote from the abstract of their
+paper:
+
+  "It is possible to extend the basic notion of 'function call' to
+  allow functions to have multiple return points. This turns out to be
+  a surprisingly useful mechanism. This article conducts a fairly
+  wide-ranging tour of such a feature..."
+
+The paper is at:
+  http://www.ccs.neu.edu/home/shivers/papers/mrlc.pdf
+
+I'm not aware of any published implementation of this feature. I wrote
+this version after looking at the language creation features in
+Racket. I was wondering how Racket might host languages with features
+that weren't supported by its primitives and multi came to mind, but
+after reading through the Racket documentation on continuations, I
+began to think that it was possible to implement multi as a plain old
+macro with continuation marks and prompts.
+
+My syntax has minor differences from the paper. Return points are
+indexed from ZERO, not one, since that is how vectors (etc.) are
+indexed in Scheme. Also, the indexed return point syntax isn't
+prefixed with #, and the lambda return point syntax doesn't have a
+lambda keyword.
+
+Look through test.rkt for a bunch of examples.
+
+ISSUES:
+
+I'd like to here from someone who knows Racket really well to tell me
+if I'm barking up the wrong tree. Is there a better way to provide
+multi? Is what I have done reasonable?
+
+The macros could be better, and give better messages, etc. Please send
+a patch if you are good at that sort of thing.
+
+The multi macro would need to be improved to capture the super tail
+call semantics:
+  * A prompt should only be used when introducing lambda return points.
+  * Unused prompts could be popped off the "stack" before setting
+    up new return points.
