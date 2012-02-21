@@ -30,7 +30,7 @@ Look through test.rkt for a bunch of examples.
 
 ISSUES:
 
-I'd like to here from someone who knows Racket really well to tell me
+I'd like to hear from someone who knows Racket really well to tell me
 if I'm barking up the wrong tree. Is there a better way to provide
 multi? Is what I have done reasonable?
 
